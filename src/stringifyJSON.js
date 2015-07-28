@@ -11,7 +11,6 @@ var stringifyJSON = function(obj) {
   } else if (typeof obj === 'boolean') {
     return obj.toString();
   } else if (typeof obj === 'string') {
-    // there's gotta be a better way to stringify a string?
     return '\"' + obj + '\"';
   } else if (Array.isArray(obj)) {
     if (obj.length === 0) {
@@ -34,9 +33,11 @@ var stringifyJSON = function(obj) {
       var objVal = stringifyJSON(obj[key]);
       if (objVal) {
         if (count === 0) {
+          // adds first key value pair in object
           objResults += objKey;
           objResults += ":" + objVal;
         } else {
+          // adds comma before each following key value pair
           objResults += "," + objKey;
           objResults += ":" + objVal;
         }
