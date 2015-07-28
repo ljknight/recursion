@@ -5,28 +5,21 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className) {
-  var result = [];
-  var bodyChildren = document.body.childNodes;
+  var result = [];  
 
-  // check each element for className (if yes, then push) & check for children >> this is the recursion on each element in the tree
-  
-  for (var i = 0; i < bodyChildren.length; i++) {
-    if (bodyChildren[i].classList && bodyChildren[i].classList.length > 0) {
-      //console.log(bodyChildren[i].classList);
-      if (bodyChildren[i].classList.contains(className)) {
-        //console.log(bodyChildren[i]);
-      }
+  var checkChildren = function(node) {
+    var children = node.childNodes;
+    for (var i = 0; i < children.length; i++) {
+      if (children[i].classList) {
+        if (children[i].classList.contains(className)) {
+          result.push(children[i]);
+        }
+      } 
+    checkChildren(node.childNodes[i]);
     }
-    /*if (bodyChildren[i].classList.contains(className)) {
-      result.push(bodyChildren[i]);
-    }*/
-    /*
-    if (bodyChildren[i].childNodes.length > 0) {
-      console.log(bodyChildren[i].childNodes);
-    }*/
-  }
-
-  //return result;
+  };
+  checkChildren(document.body);
+  return result;
 };
 
-getElementsByClassName('container-fluid');
+//getElementsByClassName('tweet-container');
